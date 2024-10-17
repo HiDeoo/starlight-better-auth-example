@@ -1,0 +1,18 @@
+---
+import type { Props } from '@astrojs/starlight/props'
+import Default from '@astrojs/starlight/components/ThemeSelect.astro'
+
+// TODO(HiDeoo) mobile
+---
+
+{
+  Astro.locals.isSignedIn ? (
+    <a href="/sign-out">Sign out</a>
+  ) : (
+    <>
+      <a href="/sign-in">Sign in</a>
+      <a href="/sign-up">Sign up</a>
+    </>
+  )
+}
+<Default {...Astro.props}><slot /></Default>
