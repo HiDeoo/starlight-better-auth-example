@@ -10,6 +10,7 @@ export default defineConfig({
     starlight({
       prerender: false,
       components: {
+        Pagination: './src/overrides/Pagination.astro',
         Sidebar: './src/overrides/Sidebar.astro',
         ThemeSelect: './src/overrides/ThemeSelect.astro',
       },

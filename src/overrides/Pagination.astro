@@ -1,0 +1,20 @@
+---
+import type { Props } from '@astrojs/starlight/props'
+import Default from '@astrojs/starlight/components/Pagination.astro'
+
+const { pagination } = Astro.props
+let { prev, next } = pagination
+
+// If the user is not signed in and one of the pagination links is a customer page, remove it.
+if (!Astro.locals.isSignedIn) {
+  if (prev && prev.href.startsWith('/customers')) {
+    prev = undefined
+  }
+
+  if (next && next.href.startsWith('/customers')) {
+    next = undefined
+  }
+}
+---
+
+<Default {...Astro.props} pagination={{ prev, next }}><slot /></Default>
