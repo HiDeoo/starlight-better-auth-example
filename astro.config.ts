@@ -10,6 +10,7 @@ export default defineConfig({
     starlight({
       prerender: false,
       components: {
+        Sidebar: './src/overrides/Sidebar.astro',
         ThemeSelect: './src/overrides/ThemeSelect.astro',
       },
       // TODO(HiDeoo)
@@ -20,17 +21,9 @@ export default defineConfig({
       },
       // TODO(HiDeoo)
       sidebar: [
-        {
-          label: 'Guides',
-          items: [
-            // Each item here is one entry in the navigation menu.
-            { label: 'Example Guide', slug: 'guides/example' },
-          ],
-        },
-        {
-          label: 'Reference',
-          autogenerate: { directory: 'reference' },
-        },
+        { label: 'Guides', autogenerate: { directory: 'guides' } },
+        { label: 'Reference', autogenerate: { directory: 'reference' } },
+        { label: 'Customers', autogenerate: { directory: 'customers' } },
       ],
     }),
   ],

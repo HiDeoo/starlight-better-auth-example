@@ -13,5 +13,10 @@ export const onRequest = defineMiddleware(async (context, next) => {
     return context.redirect('/')
   }
 
+  // Allow access to customers pages only if the user is signed in.
+  if (context.url.pathname.startsWith('/customers') && !isSignedIn) {
+    return context.redirect('/sign-in')
+  }
+
   return next()
 })
