@@ -1,6 +1,8 @@
 ---
 import StarlightPage from '@astrojs/starlight/components/StarlightPage.astro'
 import { actions, isInputError } from 'astro:actions'
+import Form from '../components/Form.astro'
+import Input from '../components/Input.astro'
 
 const result = Astro.getActionResult(actions.signIn)
 
@@ -19,26 +21,9 @@ const inputErrors = isInputError(result?.error) ? result.error.fields : {}
 ---
 
 <StarlightPage frontmatter={{ title: 'Sign in', tableOfContents: false }}>
-  {result?.error && <p class="error">{result.error.message}</p>}
-  <form method="POST" action={actions.signIn}>
-    <div>
-      <label
-        >E-mail <input required type="email" name="email" aria-describedby="error-email" value="test@test.com" /></label
-      >
-      {inputErrors.email && <p id="error-email">{inputErrors.email.join(',')}</p>}
-    </div>
-    <div>
-      <label
-        >Password <input
-          required
-          type="password"
-          name="password"
-          aria-describedby="error-password"
-          value="aaaaaaaaaa"
-        /></label
-      >
-      {inputErrors.password && <p id="error-password">{inputErrors.password.join(',')}</p>}
-    </div>
+  <Form method="POST" action={actions.signIn}>
+    <Input errors={inputErrors.email} name="email" label="E-mail" required type="email" />
+    <Input errors={inputErrors.password} name="password" label="Password" required type="password" />
     <button>Sign in</button>
-  </form>
+  </Form>
 </StarlightPage>

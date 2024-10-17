@@ -1,0 +1,46 @@
+---
+import type { HTMLAttributes } from 'astro/types'
+import { isInputError, type ActionError } from 'astro:actions'
+
+interface Props extends HTMLAttributes<'form'> {
+  error?: ActionError
+}
+
+const { error, ...props } = Astro.props
+---
+
+{error && !isInputError(error) && <p>{error.message}</p>}
+<form {...props}><slot /></form>
+
+<style>
+  form {
+    background-color: var(--sl-color-gray-6);
+    border: 1px solid var(--sl-color-gray-5);
+    display: grid;
+    gap: 0.5rem 1rem;
+    grid-template-columns: auto 1fr;
+    padding: 1.5rem;
+  }
+
+  :global([data-theme='light']) form {
+    background-color: var(--sl-color-gray-7);
+  }
+
+  form :global(button) {
+    background-color: var(--sl-color-accent);
+    color: white;
+    border: none;
+    cursor: pointer;
+    font-weight: 600;
+    grid-column: span 2;
+    justify-self: start;
+    padding: 0.25rem 0.75rem;
+  }
+
+  p {
+    background-color: var(--sl-color-red-low);
+    border: 1px solid var(--sl-color-red);
+    color: var(--sl-color-white);
+    padding: 0.5rem 1rem;
+  }
+</style>
