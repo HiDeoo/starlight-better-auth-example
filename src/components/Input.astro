@@ -1,0 +1,50 @@
+---
+import type { HTMLAttributes } from 'astro/types'
+
+interface Props extends HTMLAttributes<'input'> {
+  errors?: string[]
+  label: string
+  name: string
+}
+
+const { errors, label, name, ...props } = Astro.props
+---
+
+<div>
+  <label for={name}>{label}</label>
+  <input id={name} {name} required type="text" name="name" aria-describedby={`error-${name}`} {...props} />
+  {errors && errors.length > 0 && <p id={`error-${name}`}>{errors.join(',')}</p>}
+</div>
+
+<style>
+  div {
+    display: grid;
+    row-gap: 0.25rem;
+    grid-column: span 2;
+    grid-template-columns: subgrid;
+  }
+
+  label {
+    align-items: center;
+    color: var(--sl-color-white);
+    display: flex;
+  }
+
+  input {
+    background-color: var(--sl-color-gray-5);
+    border: 1px solid var(--sl-color-gray-4);
+    padding: 0.125rem 0.5rem;
+    min-width: 0;
+  }
+
+  :global([data-theme='light']) input {
+    background-color: var(--sl-color-gray-6);
+    border: 1px solid var(--sl-color-gray-5);
+  }
+
+  p {
+    color: var(--sl-color-red-high);
+    font-size: var(--sl-text-sm);
+    grid-column-start: 2;
+  }
+</style>

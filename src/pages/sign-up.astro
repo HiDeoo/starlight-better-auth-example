@@ -1,6 +1,7 @@
 ---
 import StarlightPage from '@astrojs/starlight/components/StarlightPage.astro'
 import { actions, isInputError } from 'astro:actions'
+import Input from '../components/Input.astro'
 
 const result = Astro.getActionResult(actions.signUp)
 
@@ -12,30 +13,44 @@ const inputErrors = isInputError(result?.error) ? result.error.fields : {}
 ---
 
 <StarlightPage frontmatter={{ title: 'Sign up', tableOfContents: false }}>
-  {result?.error && <p class="error">{result.error.message}</p>}
+  {result?.error && !isInputError(result?.error) && <p>{result.error.message}</p>}
   <form method="POST" action={actions.signUp}>
-    <div>
-      <label>Name <input required type="text" name="name" aria-describedby="error-name" value="Test" /></label>
-      {inputErrors.name && <p id="error-name">{inputErrors.name.join(',')}</p>}
-    </div>
-    <div>
-      <label
-        >E-mail <input required type="email" name="email" aria-describedby="error-email" value="test@test.com" /></label
-      >
-      {inputErrors.email && <p id="error-email">{inputErrors.email.join(',')}</p>}
-    </div>
-    <div>
-      <label
-        >Password <input
-          required
-          type="password"
-          name="password"
-          aria-describedby="error-password"
-          value="aaaaaaaaaa"
-        /></label
-      >
-      {inputErrors.password && <p id="error-password">{inputErrors.password.join(',')}</p>}
-    </div>
+    <Input errors={inputErrors.name} name="name" label="Name" required />
+    <Input errors={inputErrors.email} name="email" label="E-mail" required type="email" />
+    <Input errors={inputErrors.password} name="password" label="Password" required type="password" />
     <button>Sign up</button>
   </form>
 </StarlightPage>
+
+<style>
+  form {
+    background-color: var(--sl-color-gray-6);
+    border: 1px solid var(--sl-color-gray-5);
+    display: grid;
+    gap: 0.5rem 1rem;
+    grid-template-columns: auto 1fr;
+    padding: 1.5rem;
+  }
+
+  :global([data-theme='light']) form {
+    background-color: var(--sl-color-gray-7);
+  }
+
+  button {
+    background-color: var(--sl-color-accent);
+    color: white;
+    border: none;
+    cursor: pointer;
+    font-weight: 600;
+    grid-column: span 2;
+    justify-self: start;
+    padding: 0.25rem 0.75rem;
+  }
+
+  p {
+    background-color: var(--sl-color-red-low);
+    border: 1px solid var(--sl-color-red);
+    color: var(--sl-color-white);
+    padding: 0.5rem 1rem;
+  }
+</style>
