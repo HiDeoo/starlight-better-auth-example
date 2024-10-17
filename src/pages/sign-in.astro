@@ -23,7 +23,7 @@ const isNewUser = new URL(Astro.request.url).searchParams.has('new')
 
 <StarlightPage frontmatter={{ title: 'Sign in', tableOfContents: false }}>
   {isNewUser && <p>Your account has been created. Please sign in.</p>}
-  <Form method="POST" action={actions.signIn}>
+  <Form method="POST" action={actions.signIn} error={result?.error}>
     <Input errors={inputErrors.email} name="email" label="E-mail" required type="email" />
     <Input errors={inputErrors.password} name="password" label="Password" required type="password" />
     <button>Sign in</button>
