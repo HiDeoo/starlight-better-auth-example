@@ -18,12 +18,23 @@ if (result && !result.error && result.data.cookies.length > 0) {
 }
 
 const inputErrors = isInputError(result?.error) ? result.error.fields : {}
+const isNewUser = new URL(Astro.request.url).searchParams.has('new')
 ---
 
 <StarlightPage frontmatter={{ title: 'Sign in', tableOfContents: false }}>
+  {isNewUser && <p>Your account has been created. Please sign in.</p>}
   <Form method="POST" action={actions.signIn}>
     <Input errors={inputErrors.email} name="email" label="E-mail" required type="email" />
     <Input errors={inputErrors.password} name="password" label="Password" required type="password" />
     <button>Sign in</button>
   </Form>
 </StarlightPage>
+
+<style>
+  p {
+    background-color: var(--sl-color-green-low);
+    border: 1px solid var(--sl-color-green);
+    color: var(--sl-color-white);
+    padding: 0.5rem 1rem;
+  }
+</style>
