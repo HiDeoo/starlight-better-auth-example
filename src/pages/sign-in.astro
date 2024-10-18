@@ -1,0 +1,40 @@
+---
+import StarlightPage from '@astrojs/starlight/components/StarlightPage.astro'
+import { actions, isInputError } from 'astro:actions'
+import Form from '../components/Form.astro'
+import Input from '../components/Input.astro'
+
+const result = Astro.getActionResult(actions.signIn)
+
+if (result && !result.error && result.data.cookies.length > 0) {
+  Astro.response.headers.append('Location', '/')
+  Astro.response.status = 302
+
+  for (const cookie of result.data.cookies) {
+    Astro.response.headers.append('Set-Cookie', cookie)
+  }
+
+  return new Response(null, Astro.response)
+}
+
+const inputErrors = isInputError(result?.error) ? result.error.fields : {}
+const isNewUser = new URL(Astro.request.url).searchParams.has('new')
+---
+
+<StarlightPage frontmatter={{ title: 'Sign in', tableOfContents: false }}>
+  {isNewUser && <p>Your account has been created. Please sign in.</p>}
+  <Form method="POST" action={actions.signIn} error={result?.error}>
+    <Input errors={inputErrors.email} name="email" label="E-mail" required type="email" />
+    <Input errors={inputErrors.password} name="password" label="Password" required type="password" />
+    <button>Sign in</button>
+  </Form>
+</StarlightPage>
+
+<style>
+  p {
+    background-color: var(--sl-color-green-low);
+    border: 1px solid var(--sl-color-green);
+    color: var(--sl-color-white);
+    padding: 0.5rem 1rem;
+  }
+</style>

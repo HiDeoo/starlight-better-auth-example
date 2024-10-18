@@ -1,0 +1,50 @@
+---
+import type { Props } from '@astrojs/starlight/props'
+import Default from '@astrojs/starlight/components/ThemeSelect.astro'
+---
+
+<div>
+  {
+    Astro.locals.isSignedIn ? (
+      <a href="/sign-out">Sign out</a>
+    ) : (
+      <>
+        <a href="/sign-in">Sign in</a>-<a href="/sign-up">Sign up</a>
+      </>
+    )
+  }
+</div>
+<Default {...Astro.props}><slot /></Default>
+
+<style>
+  div {
+    align-items: center;
+    color: var(--sl-color-gray-5);
+    display: flex;
+    gap: 0.5rem;
+    padding-inline-end: 1rem;
+  }
+
+  a {
+    color: var(--sl-color-white);
+    text-decoration: none;
+  }
+
+  a:hover {
+    color: var(--sl-color-text-accent);
+  }
+
+  @media (min-width: 50rem) {
+    div {
+      border-inline-end: 1px solid var(--sl-color-gray-5);
+    }
+
+    a {
+      color: var(--sl-color-text-accent);
+    }
+
+    a:hover {
+      color: var(--sl-color-white);
+    }
+  }
+</style>

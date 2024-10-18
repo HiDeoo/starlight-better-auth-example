@@ -1,0 +1,31 @@
+---
+import StarlightPage from '@astrojs/starlight/components/StarlightPage.astro'
+import { actions } from 'astro:actions'
+import Form from '../components/Form.astro'
+
+const result = Astro.getActionResult(actions.signOut)
+
+if (result && !result.error && result.data.cookies.length > 0) {
+  Astro.response.headers.append('Location', '/')
+  Astro.response.status = 302
+
+  for (const cookie of result.data.cookies) {
+    Astro.response.headers.append('Set-Cookie', cookie)
+  }
+
+  return new Response(null, Astro.response)
+}
+---
+
+<StarlightPage frontmatter={{ title: 'Sign out', tableOfContents: false }}>
+  <Form method="POST" action={actions.signOut} error={result?.error}>
+    <p>Are you sure you want to sign out?</p>
+    <button>Sign out</button>
+  </Form>
+</StarlightPage>
+
+<style>
+  p {
+    color: var(--sl-color-white);
+  }
+</style>

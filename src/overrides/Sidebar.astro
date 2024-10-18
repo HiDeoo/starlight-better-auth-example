@@ -1,0 +1,13 @@
+---
+import type { Props } from '@astrojs/starlight/props'
+import Default from '@astrojs/starlight/components/Sidebar.astro'
+
+let { sidebar } = Astro.props
+
+// If the user is not signed in, remove the "Customers" sidebar group.
+if (!Astro.locals.isSignedIn) {
+  sidebar = sidebar.filter((group) => group.label !== 'Customers')
+}
+---
+
+<Default {...Astro.props} {sidebar}><slot /></Default>
