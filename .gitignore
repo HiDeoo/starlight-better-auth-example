@@ -20,5 +20,8 @@ pnpm-debug.log*
 # macOS-specific files
 .DS_Store
 
+# Local .env files
+*.local
+
 # Auth database
 auth.db
