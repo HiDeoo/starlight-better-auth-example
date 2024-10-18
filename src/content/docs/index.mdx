@@ -1,17 +1,26 @@
 ---
-title: Welcome to Starlight
-description: Get started building your docs site with Starlight.
+title: Starlight x Better Auth
+description: Demonstration project using the Better Auth library to add authentication to a Starlight project.
+head:
+  - tag: title
+    content: Starlight x Better Auth
 template: splash
+editUrl: false
+lastUpdated: false
 hero:
-  tagline: Congrats on setting up a new Starlight project!
+  tagline: Demonstration project using the Better Auth library to add authentication to a Starlight project.
   image:
-    file: ../../assets/houston.webp
+    html: '🔐'
   actions:
-    - text: Example Guide
+    - text: Get started
       link: /guides/example/
       icon: right-arrow
-    - text: Read the Starlight docs
-      link: https://starlight.astro.build
+    - text: Starlight docs
+      link: https://starlight.astro.build/
+      icon: external
+      variant: minimal
+    - text: Better Auth docs
+      link: https://www.better-auth.com/
       icon: external
       variant: minimal
 ---
@@ -21,16 +30,18 @@ import { Card, CardGrid } from '@astrojs/starlight/components'
 ## Next steps
 
 <CardGrid stagger>
-  <Card title="Update content" icon="pencil">
-    Edit `src/content/docs/index.mdx` to see this page change.
+  <Card title="Read the instructions" icon="open-book">
+    Learn more in [the Starlight x Better Auth
+    README](https://github.com/HiDeoo/starlight-better-auth-example/blob/main/README.md).
   </Card>
-  <Card title="Add new content" icon="add-document">
-    Add Markdown or MDX files to `src/content/docs` to create new pages.
+  <Card title="Check out the example" icon="puzzle">
+    Explore the [example repository](https://github.com/HiDeoo/starlight-better-auth-example) to see how the project is
+    structured.
   </Card>
-  <Card title="Configure your site" icon="setting">
-    Edit your `sidebar` and other config in `astro.config.mjs`.
-  </Card>
-  <Card title="Read the docs" icon="open-book">
+  <Card title="More about Starlight" icon="starlight">
     Learn more in [the Starlight Docs](https://starlight.astro.build/).
+  </Card>
+  <Card title="More about Better Auth" icon="seti:lock">
+    Learn more in [the Better Auth Docs](https://www.better-auth.com/).
   </Card>
 </CardGrid>

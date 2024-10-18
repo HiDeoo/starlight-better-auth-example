@@ -14,18 +14,16 @@ export default defineConfig({
         Sidebar: './src/overrides/Sidebar.astro',
         ThemeSelect: './src/overrides/ThemeSelect.astro',
       },
-      // TODO(HiDeoo)
-      title: 'My Docs',
-      // TODO(HiDeoo)
-      social: {
-        github: 'https://github.com/withastro/starlight',
-      },
-      // TODO(HiDeoo)
+      customCss: ['./src/styles/custom.css'],
       sidebar: [
         { label: 'Guides', autogenerate: { directory: 'guides' } },
         { label: 'Reference', autogenerate: { directory: 'reference' } },
         { label: 'Customers', autogenerate: { directory: 'customers' } },
       ],
+      social: {
+        github: 'https://github.com/HiDeoo/starlight-better-auth-example',
+      },
+      title: 'Starlight x Better Auth',
     }),
   ],
 })
